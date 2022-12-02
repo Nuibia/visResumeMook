@@ -1,4 +1,5 @@
-import React, { FC } from "react";
+import React, { FC } from 'react';
+import lessStyle from './index.less';
 interface IProps {
   /** 标题 */
   text: string;
@@ -7,7 +8,11 @@ interface IProps {
 }
 
 const Title: FC<IProps> = ({ text, styles }) => {
-  return <div style={styles}>{text}</div>;
+  return (
+    <div style={styles} className={lessStyle.title}>
+      {text}
+    </div>
+  );
 };
 
 export default Title;
