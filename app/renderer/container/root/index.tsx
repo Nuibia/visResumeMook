@@ -7,8 +7,6 @@ import { useHistory } from 'react-router';
 import Logo from '../../../../assets/logo.png';
 import './index.less';
 
-const ROUTE_TEXT_ARRAY = ['介绍', '简历', '源码'];
-
 const Root = () => {
   const history = useHistory();
   const handleActionClick = (router: TSRouter.Item) => {
