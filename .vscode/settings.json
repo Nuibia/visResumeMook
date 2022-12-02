@@ -1,5 +1,13 @@
+// settings.json
 {
-    "cSpell.words": [
-        "Mook"
-    ]
+  // 每次保存的时候自动格式化
+  "editor.formatOnSave": true,
+  //回车自动格式化
+  "editor.formatOnType": true,
+  // 自动调整 import 语句相关顺序，能够让你的 import 语句按照字母顺序进行排列
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  },
+  // 整个编辑器默认使用prettier进行格式化代码
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
