@@ -9,5 +9,6 @@
     "source.organizeImports": true
   },
   // 整个编辑器默认使用prettier进行格式化代码
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "cSpell.words": ["Mook"]
 }
