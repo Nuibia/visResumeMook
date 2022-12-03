@@ -1,11 +1,17 @@
+import { ipcMain } from 'electron';
+
 /**
  * @desc electron主入口
  */
-const path = require("path");
-const { app, BrowserWindow } = require("electron");
+const path = require('path');
+const { app, BrowserWindow } = require('electron');
+const ROOT_PATH = path.join(app.getAppPath(), '../');
+ipcMain.on('get-root-path', (event, arg) => {
+  event.reply('reply-root-path', ROOT_PATH);
+});
 
 function isDev() {
-  return process.env.NODE_ENV === "development";
+  return process.env.NODE_ENV === 'development';
 }
 
 const createWindow = () => {
@@ -23,12 +29,12 @@ const createWindow = () => {
     // 本地开发
     mainWindow.loadURL(`http://127.0.0.1:7001`);
   } else {
-    mainWindow.loadFile(`file://${path.join(__dirname, "../dist/index.html")}`);
+    mainWindow.loadFile(`file://${path.join(__dirname, '../dist/index.html')}`);
   }
 };
 app.whenReady().then(() => {
   createWindow();
-  app.on("activate", () => {
+  app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
 });
