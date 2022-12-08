@@ -1,10 +1,26 @@
+// 使用standard规则进行代码检查
+// 让eslint使用prettier规则进行格式化
 {
     "parser": "@typescript-eslint/parser",
-    "plugins": [
-        "@typescript-eslint"
+    "extends": [
+        "standard",
+        "prettier"
     ],
-    "parserOptions": {
-        "ecmaVersion": "latest",
-        "sourceType": "module"
+    "plugins": [
+        "prettier"
+    ],
+    "rules": {
+        // https://github.com/prettier/eslint-plugin-prettier#recommended-configuration
+        // prettier配置，让eslint使用prettier的规则进行代码格式化
+        // 将error改为off，无感使用prettier格式化，想看到，可以走官网推荐的error
+        "prettier/prettier": "off",
+        "arrow-body-style": "off",
+        "prefer-arrow-callback": "off",
+        // 未使用变量警告
+        "no-unused-vars": "warn",
+        // TODO:不允许在声明前使用，react引用会报错,先关闭
+        "no-use-before-define": "off",
+        // 关闭全局变量的显式声明
+        "no-undef": "off"
     }
 }

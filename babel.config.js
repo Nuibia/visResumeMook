@@ -1,5 +1,5 @@
 module.exports = {
-  //babel
+  // babel
   presets: [
     // 支持react+ts
     '@babel/preset-env',

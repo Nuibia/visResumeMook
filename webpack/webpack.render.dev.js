@@ -15,11 +15,11 @@ const devConfig = {
   module: {
     rules: [
       {
-        test: /\css$/,
+        test: /\.css$/,
         use: ['style-loader', 'css-loader', 'postcss-loader'],
       },
       {
-        test: /\less$/,
+        test: /\.less$/,
         exclude: /node_modules/,
         use: [
           'style-loader',

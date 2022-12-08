@@ -1,4 +1,4 @@
-//获取项目的绝对路径
+// 获取项目的绝对路径
 import { ipcRenderer } from 'electron';
 export const getAppPath = () => {
   return new Promise((resolve: (value: string) => void, reject: (value: Error) => void) => {
