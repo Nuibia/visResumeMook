@@ -21,23 +21,23 @@ const Root = () => {
 
   const appName = useSelector((state: any) => state.globalModel.appName);
   return (
-    <div className="root">
-      <div className="container">
+    <div styleName="root">
+      <div styleName="container">
         <img src={Logo} alt="" />
-        <div className="title">可视化简历平台</div>
-        <div className="tips">一个模板简历制作平台, 让你的简历更加出众 ~</div>
-        <div className="action">
+        <div styleName="title">可视化简历平台</div>
+        <div styleName="tips">一个模板简历制作平台, 让你的简历更加出众 ~</div>
+        <div styleName="action">
           {ROUTER_ENTRY.map((router, index) => {
             return (
-              <div key={`${router.text}-${index}`} className="item" onClick={() => handleActionClick(router)}>
+              <div key={`${router.text}-${index}`} styleName="item" onClick={() => handleActionClick(router)}>
                 {router.text}
               </div>
             );
           })}
         </div>
-        <div className="copyright">
-          <div className="footer">
-            <p className="copyright">
+        <div styleName="copyright">
+          <div styleName="footer">
+            <p styleName="copyright">
               Copyright © 2018-{new Date().getFullYear()} All Rights Reserved. Copyright By jiangniao
             </p>
           </div>
