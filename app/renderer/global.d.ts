@@ -13,3 +13,4 @@ declare module TSRouter {
     text: string;
   }
 }
+declare module 'classnames';
