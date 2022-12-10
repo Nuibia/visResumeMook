@@ -1,15 +1,23 @@
-import { getAppPath } from '@src/common/utils/appPath';
-import fileAction from '@src/common/utils/file';
 import React from 'react';
+import ResumeAction from './components/resumeAction';
+import ResumeContent from './components/resumeContent';
+import ResumeToolbar from './components/resumeToolbar';
 import './index.less';
-function Resume() {
-  getAppPath().then(rootPath => {
-    console.log('应用程序目录路径：', rootPath);
-    console.log('文件读取，内容数据为：');
-    fileAction.read(`${rootPath}app/renderer/container/resume/index.tsx`).then(data => {
-      console.log('data', data);
-    });
-  });
-  return <div>我是简历模块</div>;
-}
+
+const Resume = () => {
+  return (
+    <div styleName="container">
+      <div styleName="header">
+        <ResumeAction />
+      </div>
+      <div styleName="content">
+        <ResumeContent />
+      </div>
+      <div styleName="toolbar">
+        <ResumeToolbar />
+      </div>
+    </div>
+  );
+};
+
 export default Resume;
