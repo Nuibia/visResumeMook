@@ -27,6 +27,7 @@ const devConfig = {
             loader: 'css-loader',
             options: {
               modules: {
+                // 搭配babel中的插件，需要两边儿的命名规则相同
                 localIdentName: '[name]__[local]__[hash:base64:5]',
               },
             },
