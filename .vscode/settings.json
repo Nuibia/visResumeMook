@@ -1,9 +1,9 @@
 // settings.json
 {
   // 每次保存的时候自动格式化
-  "editor.formatOnSave": true,
+  // "editor.formatOnSave": true,
   //回车自动格式化
-  "editor.formatOnType": true,
+  // "editor.formatOnType": true,
   // 自动调整 import 语句相关顺序，能够让你的 import 语句按照字母顺序进行排列
   "editor.codeActionsOnSave": {
     "source.organizeImports": true

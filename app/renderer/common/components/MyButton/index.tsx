@@ -1,8 +1,8 @@
 /**
  * @description 按钮组件
  */
-import React from 'react';
 import classnames from 'classnames';
+import React from 'react';
 import './index.less';
 
 export interface Button {
@@ -44,7 +44,7 @@ function MyButton({ size = 'small', style, width, children, disabled, className,
     <div
       style={{
         ...style,
-        width: width,
+        width,
       }}
       className={className}
       styleName={classnames('es-button', {
