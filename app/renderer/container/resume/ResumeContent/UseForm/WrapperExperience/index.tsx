@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useMemo, useCallback } from 'react';
+import MyModal from '@common/components/MyModal';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { AdapterExperienceType } from './adapter';
 import './index.less';
 import Left from './Left';
 import Right from './Right';
 import Menu from './Right/Menu';
 import { onAddExperience, onDeleteExperience } from './utils';
-import { AdapterExperienceType } from './adapter';
-import MyModal from '@common/components/MyModal';
 
 interface IProps {
   dataList: any[];
@@ -138,8 +138,8 @@ function WrapperExperience({ children, dataList, updateDataList }: IProps) {
   );
 
   const onSaveEditValue = useCallback(() => {
-    let newList = [...experienceList];
-    let item = editModal?.tempSaveItem ? { ...editModal?.tempSaveItem } : { ...currentItem };
+    const newList = [...experienceList];
+    const item = editModal?.tempSaveItem ? { ...editModal?.tempSaveItem } : { ...currentItem };
     newList[currentIndex] = item;
     setExperienceList(newList);
     updateDataList && updateDataList(newList);

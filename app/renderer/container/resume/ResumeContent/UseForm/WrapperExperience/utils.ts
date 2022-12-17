@@ -1,7 +1,7 @@
 import { AdapterExperienceType } from './adapter';
 
 export function onAddExperience(prevList: AdapterExperienceType[]) {
-  let nextList: AdapterExperienceType[] = prevList ? Array.from(prevList) : [];
+  const nextList: AdapterExperienceType[] = prevList ? Array.from(prevList) : [];
   const newAddItem: AdapterExperienceType = {
     title: '未命名条目',
     date: new Date().valueOf(),
@@ -17,7 +17,7 @@ export function onAddExperience(prevList: AdapterExperienceType[]) {
 }
 
 export function onDeleteExperience(deleteIndex: number, prevList: AdapterExperienceType[]) {
-  let nextList: AdapterExperienceType[] = prevList ? Array.from(prevList) : [];
+  const nextList: AdapterExperienceType[] = prevList ? Array.from(prevList) : [];
   nextList.splice(deleteIndex, 1);
   return nextList;
 }
