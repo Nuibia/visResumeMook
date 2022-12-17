@@ -1,8 +1,8 @@
 import React from 'react';
-import ResumeAction from './components/resumeAction';
-import ResumeContent from './components/resumeContent';
-import ResumeToolbar from './components/resumeToolbar';
 import './index.less';
+import ResumeAction from './ResumeAction';
+import ResumeContent from './ResumeContent';
+import ResumeToolbar from './ResumeToolbar';
 const Resume = () => {
   return (
     <div styleName="container">
