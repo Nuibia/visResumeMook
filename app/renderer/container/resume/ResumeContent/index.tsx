@@ -10,10 +10,10 @@ import EducationForm from './UseForm/Education';
 import PersonalForm from './UseForm/Personal';
 import SkillForm from './UseForm/Skill';
 import WorkForm from './UseForm/Work';
+import WorkExperience from './UseForm/WorkExperience';
 import * as UseTemplateList from './UseTemplate';
 
 const HEADER_ACTION_HEIGHT = 92;
-const height = document.body.clientHeight;
 
 function ResumeContent() {
   const [formName, setFormName] = useState('');
@@ -39,9 +39,8 @@ function ResumeContent() {
     setShowFormModal(false);
     setFormName('');
   };
-
   return (
-    <MyScrollBox maxHeight={height - HEADER_ACTION_HEIGHT}>
+    <MyScrollBox maxHeight={document.body.clientHeight - HEADER_ACTION_HEIGHT}>
       <UseTemplateList.TemplateOne />
       {showFormModal && (
         <>
@@ -51,6 +50,7 @@ function ResumeContent() {
           {formName === RESUME_TOOLBAR_MAPS.personal && <PersonalForm onClose={onClose} />}
           {formName === RESUME_TOOLBAR_MAPS.skill && <SkillForm onClose={onClose} />}
           {formName === RESUME_TOOLBAR_MAPS.workPrefer && <WorkForm onClose={onClose} />}
+          {formName === RESUME_TOOLBAR_MAPS.workExperience && <WorkExperience onClose={onClose} />}
         </>
       )}
     </MyScrollBox>

@@ -10,7 +10,7 @@ function Work() {
 
   return (
     <div styleName="content">
-      <p styleName="label">在校经历 Post</p>
+      <p styleName="label">工作经历</p>
       <ul styleName="list">
         {!!workExperience?.length &&
           workExperience?.map((experience: TSResume.WorkExperience, index: number) => {

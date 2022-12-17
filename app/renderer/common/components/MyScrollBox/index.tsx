@@ -26,7 +26,7 @@ interface IProps {
 function MyScrollBox({ children, maxHeight = 200, style = {}, innerStyle = {}, onScrollTop }: IProps) {
   function onScroll(e: any) {
     const _event = e.target || e.currentTarget;
-    onScrollTop && onScrollTop(_event.scrollTop);
+    onScrollTop?.(_event.scrollTop);
   }
   let _style = { ...style };
   if (maxHeight) {

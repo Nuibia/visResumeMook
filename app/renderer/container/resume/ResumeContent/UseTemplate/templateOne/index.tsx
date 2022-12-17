@@ -17,7 +17,6 @@ import Work from './components/Work';
 import './index.less';
 
 function TemplateOne() {
-  // 👇 获取简历信息数据
   const base: TSResume.Base = useSelector((state: any) => state.resumeModel.base);
   const resumeToolbarKeys: string[] = useSelector((state: any) => state.templateModel.resumeToolbarKeys);
 
@@ -40,7 +39,7 @@ function TemplateOne() {
         </div>
         {/* 内容 */}
         <div styleName="center">
-          <Synopsis />
+          {(resumeToolbarKeys.includes(RESUME_TOOLBAR_MAPS.evaluation) || base?.username) && <Synopsis />}
           <div styleName="listData">
             {resumeToolbarKeys.includes(RESUME_TOOLBAR_MAPS.skill) && <Skill />}
             {resumeToolbarKeys.includes(RESUME_TOOLBAR_MAPS.schoolExperience) && <Post />}
