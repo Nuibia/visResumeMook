@@ -47,6 +47,7 @@ const ResumeToolbar = () => {
     setAddToolbarList(nextAddSliderList);
     const nextUnAddSliderList = onDeleteToolbar(unAddToolbarList, moduleToolbar);
     setUnAddToolbarList(nextUnAddSliderList);
+    changeResumeToolbarKeys(nextAddSliderList.map(s => s.key));
   };
 
   // 删除模块
@@ -55,6 +56,7 @@ const ResumeToolbar = () => {
     setAddToolbarList(nextAddSliderList);
     const nextUnAddSliderList = onAddToolbar(unAddToolbarList, moduleSlider);
     setUnAddToolbarList(nextUnAddSliderList);
+    changeResumeToolbarKeys(nextAddSliderList.map(s => s.key));
   };
 
   return (

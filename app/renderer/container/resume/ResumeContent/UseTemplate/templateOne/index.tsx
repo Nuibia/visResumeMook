@@ -32,7 +32,7 @@ function TemplateOne() {
           </div>
           <div styleName="fillColor" />
           <div styleName="baseData">
-            <BaseInfo />
+            {resumeToolbarKeys.includes(RESUME_TOOLBAR_MAPS.personal) && <BaseInfo />}
             {resumeToolbarKeys.includes(RESUME_TOOLBAR_MAPS.contact) && <Contact />}
             {resumeToolbarKeys.includes(RESUME_TOOLBAR_MAPS.workPrefer) && <Job />}
             {resumeToolbarKeys.includes(RESUME_TOOLBAR_MAPS.certificate) && <Certificate />}
