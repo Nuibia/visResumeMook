@@ -3,7 +3,7 @@
   "author": "jiangniao",
   "version": "1.0.0",
   "description": "简历平台桌面应用",
-  "main": "./app/electron.ts",
+  "main": "./dist/electron.ts",
   "scripts": {
     "start:main": "webpack --config ./webpack/webpack.main.dev.js && electron ./dist/electron.js",
     "start:render": "webpack-dev-server --config ./webpack/webpack.render.dev.js",
