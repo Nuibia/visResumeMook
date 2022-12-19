@@ -6,12 +6,15 @@ import { useSelector } from 'react-redux';
 import { HashRouter, Redirect, Route, Switch } from 'react-router-dom';
 import TemplateList from './container/templateList';
 import useReadDirAssetsTemplateHooks from './hooks/useReadDirAssetsTemplateHooks';
+import useThemeActionHooks from './hooks/useThemeActionHooks';
 
 const Router = () => {
   const appName = useSelector((state: any) => state.globalModel.appName);
   const readDirAssetsTemplateHooks = useReadDirAssetsTemplateHooks();
+  const initThemeConfig = useThemeActionHooks.useInitThemeConfig();
   useEffect(() => {
     readDirAssetsTemplateHooks();
+    initThemeConfig();
   }, []);
 
   console.log('appName = ', appName);

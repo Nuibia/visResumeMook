@@ -1,9 +1,9 @@
 // import Logo from '@/assets/logo.png';
+import MyTheme from '@src/common/components/MyTheme';
 import { ROUTER_ENTRY } from '@src/common/constants/router';
 import { isHttpOrHttpsUrl } from '@src/common/utils/router';
 import { shell } from 'electron';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import Logo from '../../../../assets/logo.png';
 import './index.less';
@@ -17,15 +17,16 @@ const Root = () => {
       history.push(router.url);
     }
   };
-  const dispatch = useDispatch();
 
-  const appName = useSelector((state: any) => state.globalModel.appName);
   return (
     <div styleName="root">
       <div styleName="container">
         <img src={Logo} alt="" />
         <div styleName="title">可视化简历平台</div>
         <div styleName="tips">一个模板简历制作平台, 让你的简历更加出众 ~</div>
+        <div styleName="theme">
+          <MyTheme />
+        </div>
         <div styleName="action">
           {ROUTER_ENTRY.map((router, index) => {
             return (
