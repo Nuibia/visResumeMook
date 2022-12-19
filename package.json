@@ -3,17 +3,30 @@
   "author": "jiangniao",
   "version": "1.0.0",
   "description": "简历平台桌面应用",
-  "main": "./app/main/electron.ts",
+  "main": "./app/electron.ts",
   "scripts": {
     "start:main": "webpack --config ./webpack/webpack.main.dev.js && electron ./dist/electron.js",
     "start:render": "webpack-dev-server --config ./webpack/webpack.render.dev.js",
+    "build:main": "webpack --config ./webpack/webpack.main.prod.js",
+    "build:render": "webpack --config ./webpack/webpack.render.prod.js",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
     "lint": "eslint .",
     "prepare": "husky install"
+  },
+  "build": {
+    "appId": "com.jiangniao.visResumeMook",
+    "productName": "VisResumeMook",
+    "copyright": "Copyright (c)",
+    "files": [
+      "dist/**/*",
+      "package.json",
+      "node_modules"
+    ]
   },
   "license": "ISC",
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
-    "electron": "^11.1.1",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
     "react": "^17.0.2",
@@ -24,6 +37,7 @@
     "redux": "^4.2.0"
   },
   "devDependencies": {
+    "electron": "^11.1.1",
     "@babel/cli": "^7.14.3",
     "@babel/core": "^7.14.3",
     "@babel/plugin-transform-modules-commonjs": "^7.14.0",
@@ -46,6 +60,7 @@
     "classnames": "^2.3.1",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^3.0.0",
+    "electron-builder": "^22.10.5",
     "eslint": "^8.29.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard": "^17.0.0",
