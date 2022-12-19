@@ -3,6 +3,14 @@ const fileAction = {
   read: (path: string, encoding?: BufferEncoding): Promise<string> => {
     return fsPromiseAPIs.readFile(path, { encoding: encoding || 'utf-8' });
   },
+  /**
+   * @description 读取目录内容
+   * @param path 路径
+   * @returns  {Promise}
+   */
+  readDir: (path: string): Promise<string[]> => {
+    return fsPromiseAPIs.readdir(path);
+  },
   write: (path: string, content: string, encoding?: BufferEncoding): Promise<void> => {
     return fsPromiseAPIs.writeFile(path, content, { encoding: encoding || 'utf-8' });
   },

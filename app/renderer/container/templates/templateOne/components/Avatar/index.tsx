@@ -2,9 +2,9 @@
  * @desc 头像
  * @author pengdaokuan
  */
+import AvatarImage from '@assets/avatar.png';
 import React from 'react';
 import './index.less';
-import AvatarImage from '@assets/avatar.jpg';
 
 function Avatar() {
   return (
