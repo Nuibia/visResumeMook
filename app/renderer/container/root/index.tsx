@@ -1,15 +1,16 @@
-// import Logo from '@/assets/logo.png';
+import Logo from '@assets/logo.png';
 import MyTheme from '@src/common/components/MyTheme';
 import { ROUTER_ENTRY } from '@src/common/constants/router';
 import { isHttpOrHttpsUrl } from '@src/common/utils/router';
+import useThemeActionHooks from '@src/hooks/useThemeActionHooks';
 import { shell } from 'electron';
 import React from 'react';
 import { useHistory } from 'react-router';
-import Logo from '../../../../assets/logo.png';
 import './index.less';
 
 const Root = () => {
   const history = useHistory();
+  const [currentTheme] = useThemeActionHooks.useGetCurrentTheme();
   const handleActionClick = (router: TSRouter.Item) => {
     if (isHttpOrHttpsUrl(router.url)) {
       shell.openExternal(router.url);
@@ -19,7 +20,7 @@ const Root = () => {
   };
 
   return (
-    <div styleName="root">
+    <div styleName="root" style={{ backgroundColor: currentTheme?.backgroundColor }}>
       <div styleName="container">
         <img src={Logo} alt="" />
         <div styleName="title">可视化简历平台</div>
