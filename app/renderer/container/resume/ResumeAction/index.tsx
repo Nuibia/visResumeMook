@@ -10,8 +10,9 @@ import fileAction from '@common/utils/file';
 import { toPrintPdf } from '@common/utils/htmlToPdf';
 import { intToDateString } from '@common/utils/time';
 import { compilePath } from '@src/common/utils/router';
+import useClickAway from '@src/hooks/useClickAway';
 import { useReadGlobalConfigFile, useUpdateGlobalConfigFile } from '@src/hooks/useGlobalConfigActionHooks';
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router';
 import './index.less';
@@ -23,10 +24,10 @@ function ResumeAction() {
     templateId: string;
     templateIndex: string;
   }>();
-  const [showModal, setShowModal] = useState(false);
   const base: TSResume.Base = useSelector((state: any) => state.resumeModel.base);
   const work: TSResume.Work = useSelector((state: any) => state.resumeModel.work);
   const resume = JSON.stringify(useSelector((state: any) => state.resumeModel));
+  const { ref, componentVisible, setComponentVisible } = useClickAway(false);
   const readAppConfigThemeFile = useReadGlobalConfigFile();
   const updateGlobalConfigFile = useUpdateGlobalConfigFile();
 
@@ -44,7 +45,7 @@ function ResumeAction() {
   // 导出PDF
   const exportPdf = () => {
     toPrintPdf(`${base?.username}+${base?.school}+${work?.job}`);
-    setShowModal(false);
+    setComponentVisible(false);
     readAppConfigThemeFile().then((value: { [key: string]: any }) => {
       if (value?.resumeSavePath) {
         saveResumeJson(value?.resumeSavePath);
@@ -84,17 +85,18 @@ function ResumeAction() {
       <div styleName="back" onClick={onBack}>
         返回
       </div>
-      <MyButton size="middle" className="export-btn" onClick={() => setShowModal(true)}>
+      <MyButton size="middle" className="export-btn" onClick={() => setComponentVisible(true)}>
         导出PDF
       </MyButton>
-      {showModal && (
+      {componentVisible && (
         <MyModal.Confirm
+          eleRef={ref}
           title="确定要打印简历吗？"
           description="请确保信息的正确，目前仅支持单页打印哦～"
           config={{
             cancelBtn: {
               isShow: true,
-              callback: () => setShowModal(false),
+              callback: () => setComponentVisible(false),
             },
             submitBtn: {
               isShow: true,
