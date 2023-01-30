@@ -1,21 +1,33 @@
 import Logo from '@assets/logo.png';
 import MyTheme from '@src/common/components/MyTheme';
-import { ROUTER_ENTRY } from '@src/common/constants/router';
-import { isHttpOrHttpsUrl } from '@src/common/utils/router';
+import { ROUTER_ENTRY, ROUTER_KEY } from '@src/common/constants/router';
+import { compilePath, isHttpOrHttpsUrl } from '@src/common/utils/router';
 import useThemeActionHooks from '@src/hooks/useThemeActionHooks';
 import { shell } from 'electron';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import './index.less';
 
 const Root = () => {
   const history = useHistory();
   const [currentTheme] = useThemeActionHooks.useGetCurrentTheme();
-  const handleActionClick = (router: TSRouter.Item) => {
+  const selectTemplate = useSelector((state: any) => state.templateModel.selectTemplate);
+  const onRouterToLink = (router: TSRouter.Item) => {
     if (isHttpOrHttpsUrl(router.url)) {
       shell.openExternal(router.url);
     } else {
-      history.push(router.url);
+      if (router.key !== ROUTER_KEY.resume) {
+        history.push(compilePath(router.url));
+      } else {
+        history.push(
+          compilePath(router.url, {
+            fromPath: ROUTER_KEY.root,
+            templateId: selectTemplate?.templateId,
+            templateIndex: selectTemplate?.templateIndex,
+          }),
+        );
+      }
     }
   };
 
@@ -29,9 +41,14 @@ const Root = () => {
           <MyTheme />
         </div>
         <div styleName="action">
-          {ROUTER_ENTRY.map((router, index) => {
+          {ROUTER_ENTRY.map((router: TSRouter.Item) => {
             return (
-              <div key={`${router.text}-${index}`} styleName="item" onClick={() => handleActionClick(router)}>
+              <div
+                key={router.key}
+                styleName="item"
+                onClick={() => {
+                  onRouterToLink(router);
+                }}>
                 {router.text}
               </div>
             );

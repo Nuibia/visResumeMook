@@ -13,11 +13,15 @@ import WorkForm from './UseForm/Work';
 import WorkExperience from './UseForm/WorkExperience';
 import * as UseTemplateList from './UseTemplate';
 
-const HEADER_ACTION_HEIGHT = 92;
-
 function ResumeContent() {
+  const HEADER_ACTION_HEIGHT = 92;
+  const [height, setHeight] = useState(0);
   const [formName, setFormName] = useState('');
   const [showFormModal, setShowFormModal] = useState(false);
+
+  useEffect(() => {
+    if (document.body && document.body.clientHeight > 0) setHeight(document.body.clientHeight);
+  }, [document.body.clientHeight]);
 
   /**
    * @description 接收订阅事件的传参
@@ -40,7 +44,7 @@ function ResumeContent() {
     setFormName('');
   };
   return (
-    <MyScrollBox maxHeight={document.body.clientHeight - HEADER_ACTION_HEIGHT}>
+    <MyScrollBox maxHeight={height - HEADER_ACTION_HEIGHT}>
       <UseTemplateList.TemplateOne />
       {showFormModal && (
         <>
