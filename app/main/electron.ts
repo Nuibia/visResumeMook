@@ -1,40 +1,69 @@
-import { ipcMain } from 'electron';
-
-/**
- * @desc electron主入口
- */
-const path = require('path');
-const { app, BrowserWindow } = require('electron');
-const ROOT_PATH = path.join(app.getAppPath(), '../');
-ipcMain.on('get-root-path', (event, arg) => {
-  event.reply('reply-root-path', ROOT_PATH);
-});
+import { app, BrowserWindow, dialog, ipcMain } from 'electron';
+import path from 'path';
 
 function isDev() {
+  // 👉 还记得我们配置中通过 webpack.DefinePlugin 定义的构建变量吗
   return process.env.NODE_ENV === 'development';
 }
 
-const createWindow = () => {
-  // 创建浏览器窗口
+// let currentSettingWindow: BrowserWindow;
+
+function createWindow() {
+  // 创建主应用窗口
   const mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
     webPreferences: {
       devTools: true,
-      // 注入node模块
       nodeIntegration: true,
     },
   });
+
+  // 创建应用设置窗口
+  const settingWindow = new BrowserWindow({
+    width: 720,
+    height: 240,
+    resizable: false,
+    webPreferences: {
+      devTools: true,
+      nodeIntegration: true,
+    },
+  });
+
+  // currentSettingWindow = settingWindow;
+
   if (isDev()) {
-    // 本地开发
-    mainWindow.loadURL(`http://127.0.0.1:7001`);
+    mainWindow.loadURL(`http://127.0.0.1:7001/index.html`);
+    settingWindow.loadURL(`http://127.0.0.1:7001/setting.html`);
   } else {
-    mainWindow.loadFile(`file://${path.join(__dirname, '../dist/index.html')}`);
+    mainWindow.loadURL(`file://${path.join(__dirname, '../dist/index.html')}`);
+    settingWindow.loadURL(`file://${path.join(__dirname, '../dist/setting.html')}`);
   }
-};
+}
+
 app.whenReady().then(() => {
   createWindow();
-  app.on('activate', () => {
+  app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
+});
+
+const ROOT_PATH = path.join(app.getAppPath(), '../');
+
+ipcMain.on('get-root-path', (event, arg) => {
+  event.reply('reply-root-path', ROOT_PATH);
+});
+
+// 应用设置，保存自定义存储路径
+ipcMain.on('open-save-resume-path', (event, arg) => {
+  dialog
+    .showOpenDialog({
+      properties: ['openDirectory'],
+    })
+    .then(result => {
+      event.reply('reply-save-resume-path', result.filePaths);
+    })
+    .catch(err => {
+      event.reply('reply-save-resume-path', err);
+    });
 });

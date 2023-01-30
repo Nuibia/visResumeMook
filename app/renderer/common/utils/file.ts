@@ -29,5 +29,13 @@ const fileAction = {
   canRead: (path: string) => {
     return fsPromiseAPIs.access(path, fs.constants.R_OK);
   },
+  /**
+   * @description 创建文件夹
+   * @param path 创建 /a/b/c，不管`/a` 和 /a/b 是否存在。
+   * @returns {Promise}
+   */
+  mkdirDir: (path: string) => {
+    return fsPromiseAPIs.mkdir(path, { recursive: true });
+  },
 };
 export default fileAction;
