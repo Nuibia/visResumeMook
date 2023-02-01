@@ -75,7 +75,7 @@ app.on('ready', () => {
 const ROOT_PATH = path.join(app.getAppPath(), '../');
 
 ipcMain.on('get-root-path', (event, arg) => {
-  event.reply('reply-root-path', ROOT_PATH);
+  event.reply('reply-root-path', isDev() ? ROOT_PATH : __dirname);
 });
 
 // 应用设置，保存自定义存储路径

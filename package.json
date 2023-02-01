@@ -3,7 +3,7 @@
   "author": "jiangniao",
   "version": "1.0.0",
   "description": "简历平台桌面应用",
-  "main": "./dist/electron.ts",
+  "main": "./dist/electron.js",
   "scripts": {
     "start:main": "webpack --config ./webpack/webpack.main.dev.js && electron ./dist/electron.js",
     "start:render": "webpack-dev-server --config ./webpack/webpack.render.dev.js",
@@ -15,14 +15,45 @@
     "prepare": "husky install"
   },
   "build": {
-    "appId": "com.jiangniao.visResumeMook",
+    "appId": "jiangniao.visResumeMook",
     "productName": "VisResumeMook",
-    "copyright": "Copyright (c)",
+    "copyright": "Copyright © 2023 ${author}",
     "files": [
       "dist/**/*",
       "package.json",
-      "node_modules"
-    ]
+      "node_modules/"
+    ],
+    "directories": {
+      "output": "package"
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "category": "public.app-category.productivity"
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "file"
+        }
+      ]
+    },
+    "win": {
+      "target": [
+        "msi",
+        "nsis"
+      ]
+    }
   },
   "license": "ISC",
   "dependencies": {
@@ -59,9 +90,10 @@
     "babel-plugin-react-css-modules": "^5.2.6",
     "classnames": "^2.3.1",
     "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^6.4.1",
     "css-loader": "^3.0.0",
-    "electron": "^11.1.1",
-    "electron-builder": "^22.10.5",
+    "electron": "^11.5.0",
+    "electron-builder": "^22.11.7",
     "eslint": "^8.29.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard": "^17.0.0",
