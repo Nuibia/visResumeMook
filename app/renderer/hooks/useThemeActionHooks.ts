@@ -1,6 +1,5 @@
-import { getAppPath } from '@src/common/utils/appPath';
+import { getUserStoreDataPath } from '@src/common/utils/appPath';
 import fileAction from '@src/common/utils/file';
-import _ from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 const path = require('path');
 
@@ -48,9 +47,10 @@ function useSelectTheme() {
     const prevTheme: string = themeConfigValues?.currentTheme || '';
     const initTheme = { id: 'dark', fontColor: '#ffffff', backgroundColor: '#27292c' };
 
-    let nextTheme: TSTheme.Item;
+    let nextTheme: TSTheme.Item | string;
     if (themeConfigValues?.themeList.length > 0) {
-      if (prevTheme) nextTheme = _.find(themeConfigValues?.themeList, { id: prevTheme }) || initTheme;
+      // if (prevTheme) nextTheme = _.find(themeConfigValues?.themeList, { id: prevTheme }) || initTheme;
+      if (prevTheme) nextTheme = prevTheme || initTheme;
       else nextTheme = themeConfigValues?.themeList[0];
     } else {
       nextTheme = initTheme;
@@ -76,7 +76,7 @@ function useSelectTheme() {
 function useReadAppConfigThemeFile() {
   return () => {
     return new Promise((resolve: (values: { [key: string]: any }) => void, reject: (value: Error) => void) => {
-      getAppPath().then((appPath: string) => {
+      getUserStoreDataPath().then((appPath: string) => {
         const jsonPath = path.join(appPath, 'appConfig/theme.config.json');
         fileAction
           .hasFile(jsonPath)
@@ -100,7 +100,7 @@ function useReadAppConfigThemeFile() {
 function useUpdateAppConfigThemeFile() {
   const readAppConfigThemeFile = useReadAppConfigThemeFile();
   return (updateKey: string, updateValues: any, callback?: () => void) => {
-    getAppPath().then((appPath: string) => {
+    getUserStoreDataPath().then((appPath: string) => {
       const jsonPath = path.join(appPath, 'appConfig/theme.config.json');
       readAppConfigThemeFile().then((values: { [key: string]: any }) => {
         if (values && !!Object.keys(values).length) {

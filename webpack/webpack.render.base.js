@@ -1,7 +1,12 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-module.exports = {
+const Happypack = require('happypack');
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
+const AddAssetHtmlWebpackPlugin = require('add-asset-html-webpack-plugin');
+const webpack = require('webpack');
+const smp = new SpeedMeasurePlugin();
+module.exports = smp.wrap({
   entry: {
     index: path.resolve(__dirname, '../app/renderer/app.tsx'),
     setting: path.resolve(__dirname, '../app/renderer/windowPages/setting/app.tsx'),
@@ -25,16 +30,15 @@ module.exports = {
       {
         test: /\.(js|jsx|ts|tsx)$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-        },
+        loader: 'HappyPack/loader?id=visResumeMookHappyPack',
       },
       {
         test: /\.(jpg|png|jpeg|gif)$/,
         use: [
           {
-            loader: 'file-loader',
+            loader: 'url-loader',
             options: {
+              limit: 2048,
               name: '[name]_[hash].[ext]',
               output: 'images/',
             },
@@ -81,11 +85,22 @@ module.exports = {
           from: path.resolve(__dirname, '../assets'),
           to: path.resolve(__dirname, '../dist/assets'),
         },
+      ],
+    }),
+    new Happypack({
+      id: 'visResumeMookHappyPack',
+      threads: 8,
+      loaders: [
         {
-          from: path.resolve(__dirname, '../appConfig'),
-          to: path.resolve(__dirname, '../dist/appConfig'),
+          loader: 'babel-loader',
         },
       ],
     }),
+    new AddAssetHtmlWebpackPlugin({
+      filepath: path.resolve(__dirname, '../dist/dll/reacts.dll.js'),
+    }),
+    new webpack.DllReferencePlugin({
+      manifest: path.resolve(__dirname, '../dist/dll/reacts.manifest.json'),
+    }),
   ],
-};
+});
